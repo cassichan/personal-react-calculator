@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  width: 33%;
+  background-color: rgb(69, 65, 65);
+  color:black;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid black;
+
+}
+
+
+#calculator {
+  background-color: grey;
+  margin:2em;
+  padding:5px;
+  border:5px solid rgb(34, 33, 33);
+}
