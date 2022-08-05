@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 import { useState } from "react";
 
 function App() {
@@ -8,8 +8,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <div>Total: {total} </div>
+        <h1 class="banner">Cassie's Calculator </h1>
+        <div id="total">Total: {total} </div>
         <div id="calculator">
+          <button className="calc-func">ON</button>
+          <button className="calc-func">OFF</button>
+          <button className="calc-func">C</button>
           {digits.map((digit) => {
             return (
               <button
@@ -22,8 +26,12 @@ function App() {
               </button>
             );
           })}
-
-          <button style={{color: "black", backgroundColor: "#33cccc"}}
+          <button className="operation">+</button>
+          <button className="operation">-</button>
+          <button className="operation">*</button>
+          <button className="operation">/</button>
+          <button
+            style={{ color: "black", backgroundColor: "#33cccc" }}
             onClick={() => {
               setTotal(total * 0);
             }}

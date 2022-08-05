@@ -38,7 +38,7 @@
 }
 
 button {
-  width: 33%;
+  width: 32%;
   background-color: rgb(69, 65, 65);
   color:black;
   font-weight: bold;
@@ -48,6 +48,11 @@ button {
 
 }
 
+
+.calc-func {
+  color:rgb(140, 35, 105);
+  background-color: rgb(119, 109, 109);
+}
 
 #calculator {
   background-color: grey;
