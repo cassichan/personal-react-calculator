@@ -1,0 +1,23 @@
+button {
+    width: 32%;
+    background-color: rgb(69, 65, 65);
+    color:black;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid black;
+  
+  }
+  
+  
+  .calc-func {
+    color:rgb(140, 35, 105);
+    background-color: rgb(119, 109, 109);
+  }
+  
+  #calculator {
+    background-color: grey;
+    margin:2em;
+    padding:5px;
+    border:5px solid rgb(34, 33, 33);
+  }
