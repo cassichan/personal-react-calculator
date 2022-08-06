@@ -3,22 +3,23 @@ import { useState } from "react";
 import "./calc.css";
 
 export default function Calc() {
-  const [count, setCount] = useState(0);
-  const add = () => setCount(count + 1);
+  const [total, setTotal] = useState(0);
+  let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  const add = () => setTotal(total + 1);
   const subtract = () => {
-    if (count <= 0) {
+    if (total <= 0) {
       return 0;
     } else {
-      return setCount(count - 1);
+      return setTotal(total - 1);
     }
   };
-  const divideByTwo = () => setCount(count / 2);
-  const multiplyByTwo = () => setCount(count * 2);
-  const reset = () => setCount(count * 0);
+  const divideByTwo = () => setTotal(total / 2);
+  const multiplyByTwo = () => setTotal(total * 2);
+  const reset = () => setTotal(total * 0);
   return (
     <>
       <div id="calculator">
-        <h2>Total: {count}</h2>
+        <h2>Total: {total}</h2>
         <button className="calc-func">ON</button>
         <button className="calc-func">OFF</button>
         <button
@@ -28,6 +29,18 @@ export default function Calc() {
         >
           C
         </button>
+        {digits.map((digit) => {
+            return (
+              <button
+                key={digit}
+                onClick={() => {
+                  setTotal(total + digit);
+                }}
+              >
+                {digit}
+              </button>
+            );
+          })}
         <button onClick={add} className="operation">
           +
         </button>
