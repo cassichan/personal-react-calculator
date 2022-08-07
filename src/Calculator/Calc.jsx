@@ -47,8 +47,8 @@ export default function Calc() {
                   </button>
                 );
               })}
-              <button className="clear-total-btn">=</button>
               <button className="num-btn">.</button>
+              <button className="clear-total-btn">=</button>
               <button onClick={add} className="operation-btn">
                 +
               </button>
