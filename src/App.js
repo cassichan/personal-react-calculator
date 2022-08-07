@@ -7,10 +7,9 @@ function App() {
       <div className="App">
         <header className="App-header">
           <h1 class="banner">Cassie's Calculator </h1>
-
         </header>
+        <Calc />
       </div>
-      <Calc />
     </>
   );
 }

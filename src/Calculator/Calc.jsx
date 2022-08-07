@@ -18,38 +18,48 @@ export default function Calc() {
   const reset = () => setTotal(total * 0);
   return (
     <>
-      <div id="calculator">
-        <h2>Total: {total}</h2>
-        <button className="calc-func">ON</button>
-        <button className="calc-func">OFF</button>
-        <button
-          onClick={reset}
-          style={{ color: "black", backgroundColor: "#33cccc" }}
-          className="calc-func"
-        >
-          C
-        </button>
-        {digits.map((digit) => {
-            return (
-              <button
-                key={digit}
-                onClick={() => {
-                  setTotal(total + digit);
-                }}
-              >
-                {digit}
-              </button>
-            );
-          })}
-        <button onClick={add} className="operation">
-          +
-        </button>
-        <button onClick={subtract} className="operation">
-          -
-        </button>
-        <button onClick={multiplyByTwo}className="operation">*</button>
-        <button onClick={divideByTwo}className="operation">/</button>
-      </div>
+      <main id="main">
+        <div id="calculator">
+          <header>
+            <h2 id="result-screen">{total}</h2>
+          </header>
+          <body id = "calc-body">
+            <button className="calc-func">ON</button>
+            <button className="calc-func">OFF</button>
+            <button
+              onClick={reset}
+              style={{ color: "black", backgroundColor: "#33cccc" }}
+              className="calc-func"
+            >
+              C
+            </button>
+            {digits.map((digit) => {
+              return (
+                <button
+                  key={digit}
+                  onClick={() => {
+                    setTotal(total + digit);
+                  }}
+                >
+                  {digit}
+                </button>
+              );
+            })}
+            <button onClick={add} className="operation">
+              +
+            </button>
+            <button onClick={subtract} className="operation">
+              -
+            </button>
+            <button onClick={multiplyByTwo} className="operation">
+              *
+            </button>
+            <button onClick={divideByTwo} className="operation">
+              /
+            </button>
+          </body>
+        </div>
+      </main>
     </>
   );
 }

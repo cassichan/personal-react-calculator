@@ -12,16 +12,42 @@ button {
   
   .calc-func {
     color:rgb(11, 11, 11);
-    background-color: rgb(176, 24, 181);
+    background-color: rgb(204, 134, 206);
+  }
+
+  #main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   #calculator {
-    background-color: grey;
+    background-color: rgb(170, 146, 175);
     margin:2em;
     padding:5px;
     border:5px solid rgb(34, 33, 33);
+    min-height: 50vh;
+    max-width: 30vh;
+    border-radius: 20px;
+    box-sizing: border-box;
+  }
+
+  #calc-body {
+   
+    /* display: grid;
+    gr */
   }
 
   .operation {
     background-color: pink;
+  }
+
+  #result-screen {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 10vh;
+    background-color: #F6F6F6;
+    color: black;
+    border-style: solid;
   }
