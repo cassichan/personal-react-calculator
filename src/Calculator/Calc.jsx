@@ -18,48 +18,53 @@ export default function Calc() {
   const reset = () => setTotal(total * 0);
   return (
     <>
-      <main id="main">
-        <div id="calculator">
-          <header>
-            <h2 id="result-screen">{total}</h2>
-          </header>
-          <body id = "calc-body">
-            <button className="calc-func">ON</button>
-            <button className="calc-func">OFF</button>
-            <button
-              onClick={reset}
-              style={{ color: "black", backgroundColor: "#33cccc" }}
-              className="calc-func"
-            >
-              C
-            </button>
-            {digits.map((digit) => {
-              return (
-                <button
-                  key={digit}
-                  onClick={() => {
-                    setTotal(total + digit);
-                  }}
-                >
-                  {digit}
-                </button>
-              );
-            })}
-            <button onClick={add} className="operation">
-              +
-            </button>
-            <button onClick={subtract} className="operation">
-              -
-            </button>
-            <button onClick={multiplyByTwo} className="operation">
-              *
-            </button>
-            <button onClick={divideByTwo} className="operation">
-              /
-            </button>
-          </body>
-        </div>
-      </main>
+      <body>
+        <main id="main">
+          <div id="calculator">
+            <header>
+              <h2 id="result-screen">{total}</h2>
+            </header>
+            <div id="calc-body">
+              <img
+                src="white-cat-1732386_960_720.png"
+                alt="white cat cartoon smiling with eyes closed."
+              ></img>
+              <button className="calc-func">ON</button>
+              <button className="calc-func">OFF</button>
+              <button onClick={reset} className="clear-total-btn">
+                C
+              </button>
+              {digits.map((digit) => {
+                return (
+                  <button
+                    className="num-btn"
+                    key={digit}
+                    onClick={() => {
+                      setTotal(total + digit);
+                    }}
+                  >
+                    {digit}
+                  </button>
+                );
+              })}
+              <button className="clear-total-btn">=</button>
+              <button className="num-btn">.</button>
+              <button onClick={add} className="operation-btn">
+                +
+              </button>
+              <button onClick={subtract} className="operation-btn">
+                -
+              </button>
+              <button onClick={multiplyByTwo} className="operation-btn">
+                *
+              </button>
+              <button onClick={divideByTwo} className="operation-btn">
+                /
+              </button>
+            </div>
+          </div>
+        </main>
+      </body>
     </>
   );
 }
