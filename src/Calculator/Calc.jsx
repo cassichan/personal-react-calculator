@@ -3,19 +3,38 @@ import { useState } from "react";
 import "./calc.css";
 
 export default function Calc() {
-  const [total, setTotal] = useState(0);
+  let [total, setTotal] = useState(0);
+  let [num1, setNum1] = useState(0);
+  let [num2, setNum2] = useState(0);
+  let [operation, setOperation] = useState("");
   let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  const add = () => setTotal(total + 1);
+
+  const add = () => setTotal(total + num1 + num2) && setOperation === "add";
   const subtract = () => {
     if (total <= 0) {
       return 0;
+    } else if (
+      total > 0 &&
+      setOperation === "subtract" &&
+      num1 > 0 &&
+      num2 > 0
+    ) {
+      return setTotal(total - num1 - num2);
+    } else if (
+      total > 0 &&
+      setOperation === "subtract" &&
+      num1 > 0 &&
+      num2 <= 0
+    ) {
+      return setTotal(total - num2);
     } else {
-      return setTotal(total - 1);
+      return setTotal(total - num1);
     }
   };
-  const divideByTwo = () => setTotal(total / 2);
-  const multiplyByTwo = () => setTotal(total * 2);
+  const divide = () => setTotal(total / num1);
+  const multiply = () => setTotal(total * num2);
   const reset = () => setTotal(total * 0);
+
   return (
     <>
       <body>
@@ -40,6 +59,11 @@ export default function Calc() {
                     className="num-btn"
                     key={digit}
                     onClick={() => {
+                      if (operation === "") {
+                        setTotal(num1);
+                      } else {
+                        setTotal(num1 + { digit });
+                      }
                       setTotal(total + digit);
                     }}
                   >
@@ -52,13 +76,20 @@ export default function Calc() {
               <button onClick={add} className="operation-btn">
                 +
               </button>
+              {/* <button onClick = {() => {if (operation === "") {
+                        setTotal(num1)
+                      } else {
+                        setTotal(num1 + num2 )
+                      }
+                    ;
+                    }} className="operation-btn">+</button> */}
               <button onClick={subtract} className="operation-btn">
                 -
               </button>
-              <button onClick={multiplyByTwo} className="operation-btn">
+              <button onClick={multiply} className="operation-btn">
                 *
               </button>
-              <button onClick={divideByTwo} className="operation-btn">
+              <button onClick={divide} className="operation-btn">
                 /
               </button>
             </div>
