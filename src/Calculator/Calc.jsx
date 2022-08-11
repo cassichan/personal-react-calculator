@@ -3,37 +3,40 @@ import { useState } from "react";
 import "./calc.css";
 
 export default function Calc() {
-  let [total, setTotal] = useState(0);
-  let [num1, setNum1] = useState(0);
-  let [num2, setNum2] = useState(0);
-  let [operation, setOperation] = useState("");
-  let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  let [result, setResult] = useState(0);
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [operation, setOperation] = useState("");
 
-  const add = () => setTotal(total + num1 + num2) && setOperation === "add";
-  const subtract = () => {
-    if (total <= 0) {
-      return 0;
-    } else if (
-      total > 0 &&
-      setOperation === "subtract" &&
-      num1 > 0 &&
-      num2 > 0
-    ) {
-      return setTotal(total - num1 - num2);
-    } else if (
-      total > 0 &&
-      setOperation === "subtract" &&
-      num1 > 0 &&
-      num2 <= 0
-    ) {
-      return setTotal(total - num2);
-    } else {
-      return setTotal(total - num1);
+  const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+  const reset = () => setResult(result * 0);
+
+  const calculateResult = () => {
+    if (operation === "") {
+      setResult(result);
+    } else if (operation === "add") {
+      setResult((result = num1 + num2));
+      setOperation("");
+      setNum1(0);
+      setNum2(0);
+    } else if (operation === "subtract") {
+      setResult((result = num1 - num2));
+      setOperation("");
+      setNum1(0);
+      setNum2(0);
+    } else if (operation === "multiply") {
+      setResult((result = num1 * num2));
+      setOperation("");
+      setNum1(0);
+      setNum2(0);
+    } else if (operation === "divide") {
+      setResult((result = num1 / num2));
+      setOperation("");
+      setNum1(0);
+      setNum2(0);
     }
   };
-  const divide = () => setTotal(total / num1);
-  const multiply = () => setTotal(total * num2);
-  const reset = () => setTotal(total * 0);
 
   return (
     <>
@@ -41,7 +44,7 @@ export default function Calc() {
         <main id="main">
           <div id="calculator">
             <header>
-              <h2 id="result-screen">{total}</h2>
+              <h2 id="result-screen">{result}</h2>
             </header>
             <div id="calc-body">
               <img
@@ -50,7 +53,7 @@ export default function Calc() {
               ></img>
               <button className="calc-func">ON</button>
               <button className="calc-func">OFF</button>
-              <button onClick={reset} className="clear-total-btn">
+              <button onClick={reset} className="clear-result-btn">
                 C
               </button>
               {digits.map((digit) => {
@@ -60,11 +63,12 @@ export default function Calc() {
                     key={digit}
                     onClick={() => {
                       if (operation === "") {
-                        setTotal(num1);
+                        //causing to add number always when button pressed
+                        setNum1(num1 + digit);
                       } else {
-                        setTotal(num1 + { digit });
+                        setNum2(num2 + digit);
                       }
-                      setTotal(total + digit);
+                      setResult(result + digit);
                     }}
                   >
                     {digit}
@@ -72,24 +76,37 @@ export default function Calc() {
                 );
               })}
               <button className="num-btn">.</button>
-              <button className="clear-total-btn">=</button>
-              <button onClick={add} className="operation-btn">
+              <button
+                onClick={() => {
+                  if (operation === "add") {
+                    setOperation("add");
+                    setResult((result = num1 + num2));
+                  } else if (operation === "subtract") {
+                    setOperation("add");
+                    setResult((result = num1 - num2));
+                  } else if (operation === "multiply") {
+                    setOperation("multiply");
+                    setResult((result = num1 * num2));
+                  } else if (operation === "divide") {
+                    setOperation("divide");
+                    setResult((result = num1 / num2));
+                  }
+                }}
+                className="clear-result-btn"
+                id="equal-btn"
+              >
+                =
+              </button>
+              <button onClick={calculateResult} className="operation-btn">
                 +
               </button>
-              {/* <button onClick = {() => {if (operation === "") {
-                        setTotal(num1)
-                      } else {
-                        setTotal(num1 + num2 )
-                      }
-                    ;
-                    }} className="operation-btn">+</button> */}
-              <button onClick={subtract} className="operation-btn">
+              <button onClick={calculateResult} className="operation-btn">
                 -
               </button>
-              <button onClick={multiply} className="operation-btn">
+              <button onClick={calculateResult} className="operation-btn">
                 *
               </button>
-              <button onClick={divide} className="operation-btn">
+              <button onClick={calculateResult} className="operation-btn">
                 /
               </button>
             </div>
