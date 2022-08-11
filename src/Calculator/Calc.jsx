@@ -10,31 +10,42 @@ export default function Calc() {
 
   const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
+
+  //Async function to pull in calculateResult() after buttons are clicked to set num1/num2
+  // const getUserInput = async (num1, num2) => {
+  //   try {
+
+  //   } catch (err) {
+  //     alert(err)
+  //   }
+  // }
+
   const reset = () => setResult(result * 0);
+
 
   const calculateResult = () => {
     if (operation === "") {
       setResult(result);
     } else if (operation === "add") {
       setResult((result = num1 + num2));
-      setOperation("");
-      setNum1(0);
-      setNum2(0);
+      // setOperation("");
+      // setNum1(0);
+      // setNum2(0);
     } else if (operation === "subtract") {
       setResult((result = num1 - num2));
-      setOperation("");
-      setNum1(0);
-      setNum2(0);
+      // setOperation("");
+      // setNum1(0);
+      // setNum2(0);
     } else if (operation === "multiply") {
       setResult((result = num1 * num2));
-      setOperation("");
-      setNum1(0);
-      setNum2(0);
+      // setOperation("");
+      // setNum1(0);
+      // setNum2(0);
     } else if (operation === "divide") {
       setResult((result = num1 / num2));
-      setOperation("");
-      setNum1(0);
-      setNum2(0);
+      // setOperation("");
+      // setNum1(0);
+      // setNum2(0);
     }
   };
 
@@ -64,11 +75,12 @@ export default function Calc() {
                     onClick={() => {
                       if (operation === "") {
                         //causing to add number always when button pressed
-                        setNum1(num1 + digit);
+                        setNum1(digit);
+                        // getUserInput()
                       } else {
-                        setNum2(num2 + digit);
+                        setNum2(digit);
                       }
-                      setResult(result + digit);
+                      setResult(calculateResult(setNum1, setNum2));
                     }}
                   >
                     {digit}
@@ -80,16 +92,16 @@ export default function Calc() {
                 onClick={() => {
                   if (operation === "add") {
                     setOperation("add");
-                    setResult((result = num1 + num2));
+                    setResult(num1 + num2);
                   } else if (operation === "subtract") {
                     setOperation("add");
-                    setResult((result = num1 - num2));
+                    setResult(num1 - num2);
                   } else if (operation === "multiply") {
                     setOperation("multiply");
-                    setResult((result = num1 * num2));
+                    setResult(num1 * num2);
                   } else if (operation === "divide") {
                     setOperation("divide");
-                    setResult((result = num1 / num2));
+                    setResult(num1 / num2);
                   }
                 }}
                 className="clear-result-btn"
