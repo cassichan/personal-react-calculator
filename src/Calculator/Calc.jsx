@@ -7,13 +7,20 @@ export const actions = {
   addDigit: "add-digit",
   chooseOperation: "choose-operation",
   clear: "clear",
-  deleteDigit: "delete-digit",
+  // deleteDigit: "delete-digit",
   evaluate: "evaluate",
 };
 
 function reduce(state, { type, payload }) {
   switch (type) {
     case actions.addDigit:
+      if (state.overwrite) {
+        return {
+          ...state,
+          currentNum: payload.digit,
+          overwrite: false,
+        };
+      }
       if (payload.digit === "0" && state.currentNum === "0") {
         return state;
       }
@@ -22,12 +29,19 @@ function reduce(state, { type, payload }) {
       }
       return {
         ...state,
-        currentNum: `${state.currentNum} || ""${payload.digit}`,
+        currentNum: `${state.currentNum || ""}${payload.digit}`,
       };
     case actions.chooseOperation:
       if ((state.currentNum === null) & (state.previousNum === null)) {
         return state;
       }
+      if (state.currentNum == null) {
+        return {
+          ...state,
+          operation: payload.operation,
+        };
+      }
+
       if (state.previousNum === null) {
         return {
           ...state,
@@ -36,11 +50,68 @@ function reduce(state, { type, payload }) {
           currentNum: null,
         };
       }
+      return {
+        ...state,
+        previousNum: evaluate(state),
+        currentNum: null,
+        operation: payload.operation,
+      };
     case actions.clear:
       return {};
-    case actions.deleteDigit:
+    // case actions.deleteDigit:
+    //   if (state.overwrite) {
+    //     return {
+    //       ...state,
+    //       currentNum: null,
+    //       overwrite: false,
+    //     };
+    //   }
+    //   if (state.currentNum == null) return state;
+    //   if (state.currentNum.length === 1) {
+    //     return { ...state, currentNum: null };
+    //   }
+    //   return {
+    //     ...state,
+    //     currentNum: state.currentNum.slice(0, -1),
+    //   };
     case actions.evaluate:
+      if (
+        state.operation === null ||
+        state.currentNum === null ||
+        state.previousNum === null
+      ) {
+        return state;
+      }
+      return {
+        ...state,
+        overwrite: true,
+        previousNum: null,
+        currentNum: evaluate(state),
+        operation: null,
+      };
   }
+}
+
+function evaluate({ currentNum, previousNum, operation }) {
+  const prev = parseFloat(previousNum)
+  const current = parseFloat(currentNum)
+  if (isNaN(prev) || isNaN(current)) return "";
+  let computation = "";
+  switch (operation) {
+    case "+":
+      computation = prev + current;
+      break;
+    case "-":
+      computation = prev - current;
+      break;
+    case "*":
+      computation = prev * current;
+      break;
+    case "/":
+      computation = prev / current;
+      break;
+  }
+  return computation.toString();
 }
 
 export default function Calc() {
@@ -54,13 +125,12 @@ export default function Calc() {
       <body>
         <main id="main">
           <div id="calculator">
-            <header>
-              <div className="previous-num">
-                {previousNum}
-                {operation}
-              </div>
-              <div className="current-num">{currentNum}</div>
-            </header>
+            <div className="previous-num">
+              {previousNum}
+              {operation}
+            </div>
+            <div className="current-num">{currentNum}</div>
+
             <div id="calc-body">
               <img
                 src="white-cat-1732386_960_720.png"
@@ -86,7 +156,7 @@ export default function Calc() {
               <DigitButton digit="9" dispatch={dispatch} />
               <DigitButton digit="." dispatch={dispatch} />
               <button
-                onClick={() => {}}
+                onClick={() => dispatch({ type: actions.evaluate })}
                 className="clear-result-btn"
                 id="equal-btn"
               >
