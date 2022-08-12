@@ -1,53 +1,53 @@
-import React from "react";
-import { useState } from "react";
+import React, { useReducer } from "react";
+import DigitButton from "../DigitButton/DigitButtons";
+import OperationButton from "../OperationButton/OperationButton";
 import "./calc.css";
 
+export const actions = {
+  addDigit: "add-digit",
+  chooseOperation: "choose-operation",
+  clear: "clear",
+  deleteDigit: "delete-digit",
+  evaluate: "evaluate",
+};
+
+function reduce(state, { type, payload }) {
+  switch (type) {
+    case actions.addDigit:
+      if (payload.digit === "0" && state.currentNum === "0") {
+        return state;
+      }
+      if (payload.digit === "." && state.currentNum.includes(".")) {
+        return state;
+      }
+      return {
+        ...state,
+        currentNum: `${state.currentNum} || ""${payload.digit}`,
+      };
+    case actions.chooseOperation:
+      if ((state.currentNum === null) & (state.previousNum === null)) {
+        return state;
+      }
+      if (state.previousNum === null) {
+        return {
+          ...state,
+          operation: payload.operation,
+          previousNum: state.currentNum,
+          currentNum: null,
+        };
+      }
+    case actions.clear:
+      return {};
+    case actions.deleteDigit:
+    case actions.evaluate:
+  }
+}
+
 export default function Calc() {
-  let [result, setResult] = useState(0);
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
-  const [operation, setOperation] = useState("");
-
-  const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-
-
-  //Async function to pull in calculateResult() after buttons are clicked to set num1/num2
-  // const getUserInput = async (num1, num2) => {
-  //   try {
-
-  //   } catch (err) {
-  //     alert(err)
-  //   }
-  // }
-
-  const reset = () => setResult(result * 0);
-
-
-  const calculateResult = () => {
-    if (operation === "") {
-      setResult(result);
-    } else if (operation === "add") {
-      setResult((result = num1 + num2));
-      // setOperation("");
-      // setNum1(0);
-      // setNum2(0);
-    } else if (operation === "subtract") {
-      setResult((result = num1 - num2));
-      // setOperation("");
-      // setNum1(0);
-      // setNum2(0);
-    } else if (operation === "multiply") {
-      setResult((result = num1 * num2));
-      // setOperation("");
-      // setNum1(0);
-      // setNum2(0);
-    } else if (operation === "divide") {
-      setResult((result = num1 / num2));
-      // setOperation("");
-      // setNum1(0);
-      // setNum2(0);
-    }
-  };
+  const [{ currentNum, previousNum, operation }, dispatch] = useReducer(
+    reduce,
+    {}
+  );
 
   return (
     <>
@@ -55,7 +55,11 @@ export default function Calc() {
         <main id="main">
           <div id="calculator">
             <header>
-              <h2 id="result-screen">{result}</h2>
+              <div className="previous-num">
+                {previousNum}
+                {operation}
+              </div>
+              <div className="current-num">{currentNum}</div>
             </header>
             <div id="calc-body">
               <img
@@ -64,63 +68,35 @@ export default function Calc() {
               ></img>
               <button className="calc-func">ON</button>
               <button className="calc-func">OFF</button>
-              <button onClick={reset} className="clear-result-btn">
+              <button
+                onClick={() => dispatch({ type: actions.clear })}
+                className="clear-result-btn"
+              >
                 C
               </button>
-              {digits.map((digit) => {
-                return (
-                  <button
-                    className="num-btn"
-                    key={digit}
-                    onClick={() => {
-                      if (operation === "") {
-                        //causing to add number always when button pressed
-                        setNum1(digit);
-                        // getUserInput()
-                      } else {
-                        setNum2(digit);
-                      }
-                      setResult(calculateResult(setNum1, setNum2));
-                    }}
-                  >
-                    {digit}
-                  </button>
-                );
-              })}
-              <button className="num-btn">.</button>
+              <DigitButton digit="0" dispatch={dispatch} />
+              <DigitButton digit="1" dispatch={dispatch} />
+              <DigitButton digit="2" dispatch={dispatch} />
+              <DigitButton digit="3" dispatch={dispatch} />
+              <DigitButton digit="4" dispatch={dispatch} />
+              <DigitButton digit="5" dispatch={dispatch} />
+              <DigitButton digit="6" dispatch={dispatch} />
+              <DigitButton digit="7" dispatch={dispatch} />
+              <DigitButton digit="8" dispatch={dispatch} />
+              <DigitButton digit="9" dispatch={dispatch} />
+              <DigitButton digit="." dispatch={dispatch} />
               <button
-                onClick={() => {
-                  if (operation === "add") {
-                    setOperation("add");
-                    setResult(num1 + num2);
-                  } else if (operation === "subtract") {
-                    setOperation("add");
-                    setResult(num1 - num2);
-                  } else if (operation === "multiply") {
-                    setOperation("multiply");
-                    setResult(num1 * num2);
-                  } else if (operation === "divide") {
-                    setOperation("divide");
-                    setResult(num1 / num2);
-                  }
-                }}
+                onClick={() => {}}
                 className="clear-result-btn"
                 id="equal-btn"
               >
                 =
               </button>
-              <button onClick={calculateResult} className="operation-btn">
-                +
-              </button>
-              <button onClick={calculateResult} className="operation-btn">
-                -
-              </button>
-              <button onClick={calculateResult} className="operation-btn">
-                *
-              </button>
-              <button onClick={calculateResult} className="operation-btn">
-                /
-              </button>
+              <OperationButton operation="+" dispatch={dispatch} />
+              <OperationButton operation="-" dispatch={dispatch} />
+              <OperationButton operation="*" dispatch={dispatch} />
+
+              <OperationButton operation="/" dispatch={dispatch} />
             </div>
           </div>
         </main>
