@@ -7,7 +7,6 @@ export const actions = {
   addDigit: "add-digit",
   chooseOperation: "choose-operation",
   clear: "clear",
-  // deleteDigit: "delete-digit",
   evaluate: "evaluate",
 };
 
@@ -58,22 +57,7 @@ function reduce(state, { type, payload }) {
       };
     case actions.clear:
       return {};
-    // case actions.deleteDigit:
-    //   if (state.overwrite) {
-    //     return {
-    //       ...state,
-    //       currentNum: null,
-    //       overwrite: false,
-    //     };
-    //   }
-    //   if (state.currentNum == null) return state;
-    //   if (state.currentNum.length === 1) {
-    //     return { ...state, currentNum: null };
-    //   }
-    //   return {
-    //     ...state,
-    //     currentNum: state.currentNum.slice(0, -1),
-    //   };
+
     case actions.evaluate:
       if (
         state.operation === null ||
@@ -93,8 +77,8 @@ function reduce(state, { type, payload }) {
 }
 
 function evaluate({ currentNum, previousNum, operation }) {
-  const prev = parseFloat(previousNum)
-  const current = parseFloat(currentNum)
+  const prev = parseFloat(previousNum);
+  const current = parseFloat(currentNum);
   if (isNaN(prev) || isNaN(current)) return "";
   let computation = "";
   switch (operation) {

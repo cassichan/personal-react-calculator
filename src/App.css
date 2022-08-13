@@ -4,7 +4,7 @@
 }
 
 .App-header {
-  background-color: #b77bbd;
+  background-image: linear-gradient(purple, pink);
   min-height: 20vh;
   display: flex;
   flex-direction: column;
