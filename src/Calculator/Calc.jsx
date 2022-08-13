@@ -102,7 +102,7 @@ function evaluate({ currentNum, previousNum, operation }) {
     case "*":
       computation = prev * current;
       break;
-    case "/":
+    case "÷":
       computation = prev / current;
       break;
   }
@@ -158,16 +158,16 @@ export default function Calc() {
               >
                 C
               </button>
-              <DigitButton digit="0" dispatch={dispatch} />
-              <DigitButton digit="1" dispatch={dispatch} />
-              <DigitButton digit="2" dispatch={dispatch} />
-              <DigitButton digit="3" dispatch={dispatch} />
-              <DigitButton digit="4" dispatch={dispatch} />
-              <DigitButton digit="5" dispatch={dispatch} />
               <DigitButton digit="6" dispatch={dispatch} />
               <DigitButton digit="7" dispatch={dispatch} />
               <DigitButton digit="8" dispatch={dispatch} />
               <DigitButton digit="9" dispatch={dispatch} />
+              <DigitButton digit="2" dispatch={dispatch} />
+              <DigitButton digit="3" dispatch={dispatch} />
+              <DigitButton digit="4" dispatch={dispatch} />
+              <DigitButton digit="5" dispatch={dispatch} />
+              <DigitButton digit="1" dispatch={dispatch} />
+              <DigitButton digit="0" dispatch={dispatch} />
               <DigitButton digit="." dispatch={dispatch} />
               <button
                 onClick={() => dispatch({ type: actions.evaluate })}
@@ -180,7 +180,7 @@ export default function Calc() {
               <OperationButton operation="-" dispatch={dispatch} />
               <OperationButton operation="*" dispatch={dispatch} />
 
-              <OperationButton operation="/" dispatch={dispatch} />
+              <OperationButton operation="÷" dispatch={dispatch} />
             </div>
           </div>
         </main>
