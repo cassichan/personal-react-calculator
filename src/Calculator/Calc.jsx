@@ -60,7 +60,12 @@ function reduce(state, { type, payload }) {
     case actions.clear:
       return {};
     case actions.on:
-      return "0";
+      return {
+        ...state,
+        previousNum: null,
+        currentNum: "0",
+        operation: null,
+      };
     case actions.off:
       return {};
 
