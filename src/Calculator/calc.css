@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&family=Nanum+Gothic:wght@700&display=swap");
+
 body {
   background-image: linear-gradient(pink, purple);
 }
@@ -83,6 +85,8 @@ body {
   border-top: solid;
   border-left: solid;
   border-right: solid;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .current-num {
@@ -96,4 +100,6 @@ body {
   border-left: solid;
   border-right: solid;
   margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 20px;
 }

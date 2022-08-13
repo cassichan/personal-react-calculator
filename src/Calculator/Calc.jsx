@@ -4,6 +4,8 @@ import OperationButton from "../OperationButton/OperationButton";
 import "./calc.css";
 
 export const actions = {
+  turnOn: "turn-on",
+  turnOff: "turn-off",
   addDigit: "add-digit",
   chooseOperation: "choose-operation",
   clear: "clear",
@@ -20,10 +22,10 @@ function reduce(state, { type, payload }) {
           overwrite: false,
         };
       }
-      if (payload.digit === "0" && state.currentNum === "0") {
+      if (payload.digit == "0" && state.currentNum == "0") {
         return state;
       }
-      if (payload.digit === "." && state.currentNum.includes(".")) {
+      if (payload.digit == "." && state.currentNum.includes(".")) {
         return state;
       }
       return {
@@ -31,7 +33,7 @@ function reduce(state, { type, payload }) {
         currentNum: `${state.currentNum || ""}${payload.digit}`,
       };
     case actions.chooseOperation:
-      if ((state.currentNum === null) & (state.previousNum === null)) {
+      if (state.currentNum == null && state.previousNum == null) {
         return state;
       }
       if (state.currentNum == null) {
@@ -41,7 +43,7 @@ function reduce(state, { type, payload }) {
         };
       }
 
-      if (state.previousNum === null) {
+      if (state.previousNum == null) {
         return {
           ...state,
           operation: payload.operation,
@@ -52,17 +54,21 @@ function reduce(state, { type, payload }) {
       return {
         ...state,
         previousNum: evaluate(state),
-        currentNum: null,
         operation: payload.operation,
+        currentNum: null,
       };
     case actions.clear:
+      return {};
+    case actions.on:
+      return "0";
+    case actions.off:
       return {};
 
     case actions.evaluate:
       if (
-        state.operation === null ||
-        state.currentNum === null ||
-        state.previousNum === null
+        state.operation == null ||
+        state.currentNum == null ||
+        state.previousNum == null
       ) {
         return state;
       }
@@ -70,8 +76,8 @@ function reduce(state, { type, payload }) {
         ...state,
         overwrite: true,
         previousNum: null,
-        currentNum: evaluate(state),
         operation: null,
+        currentNum: evaluate(state),
       };
   }
 }
@@ -98,30 +104,49 @@ function evaluate({ currentNum, previousNum, operation }) {
   return computation.toString();
 }
 
+const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
+  maximumFractionDigits: 0,
+});
+function formatOperand(operand) {
+  if (operand == null) return;
+  const [integer, decimal] = operand.split(".");
+  if (decimal == null) return INTEGER_FORMATTER.format(integer);
+  return `${INTEGER_FORMATTER.format(integer)}.${decimal}`;
+}
+
 export default function Calc() {
   const [{ currentNum, previousNum, operation }, dispatch] = useReducer(
     reduce,
     {}
   );
-
   return (
     <>
       <body>
         <main id="main">
           <div id="calculator">
             <div className="previous-num">
-              {previousNum}
+              {formatOperand(previousNum)}
               {operation}
             </div>
-            <div className="current-num">{currentNum}</div>
+            <div className="current-num">{formatOperand(currentNum)}</div>
 
             <div id="calc-body">
               <img
                 src="white-cat-1732386_960_720.png"
                 alt="white cat cartoon smiling with eyes closed."
               ></img>
-              <button className="calc-func">ON</button>
-              <button className="calc-func">OFF</button>
+              <button
+                onClick={() => dispatch({ type: actions.on })}
+                className="calc-func"
+              >
+                ON
+              </button>
+              <button
+                onClick={() => dispatch({ type: actions.off })}
+                className="calc-func"
+              >
+                OFF
+              </button>
               <button
                 onClick={() => dispatch({ type: actions.clear })}
                 className="clear-result-btn"
