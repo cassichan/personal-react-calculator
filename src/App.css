@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #b77bbd;
+  background-color: pink
 }
 
 .App-header {
@@ -21,7 +21,7 @@ footer {
   bottom: 0;
   width: 100vw;
   height: 5vh;
-  background-color: rgb(166, 154, 154);
+  background-color: pink
 }
 
 img {
