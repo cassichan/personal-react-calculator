@@ -1,13 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&family=Nanum+Gothic:wght@700&display=swap");
 
 body {
-  background-image: linear-gradient(pink, purple);
+  /* background-image: linear-gradient(pink, purple); */
 }
 
 #main {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: linear-gradient(pink, purple);
 }
 
 #calculator {
