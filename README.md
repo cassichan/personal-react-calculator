@@ -6,5 +6,5 @@ Deployed with firebase hosting at [https://cassies-react-project-1.web.app](http
 
 ## Credits
 
-Credit to WebDevSimplified for calculator operation functions: https://github.com/WebDevSimplified/react-calculator
+Thanks to WebDevSimplified for video used to code calculator operation functions! https://github.com/WebDevSimplified/react-calculator
 
