@@ -1,6 +1,6 @@
 # Cassie's Calculator
 
-Simple calculator web app made with React.
+Calculator web app made with React.
 
 Deployed with firebase hosting at [https://cassies-react-calculator.web.app/](https://cassies-react-calculator.web.app/)
 
@@ -8,3 +8,6 @@ Deployed with firebase hosting at [https://cassies-react-calculator.web.app/](ht
 
 Thanks to WebDevSimplified for tutorial video used to code calculator operation functions! https://github.com/WebDevSimplified/react-calculator
 
+### Preview
+
+![Desktop view](./public/screenshot_calculator.png)
